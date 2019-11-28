@@ -19,8 +19,8 @@
             android:id="@+id/alarm"
             android:layout_width="14dp"
             android:layout_height="14dp"
-            app:iiv_icon="gmd-access-alarm"
-            app:iiv_color="@color/white"/>
+            app:iiv_color="@color/gray"
+            app:iiv_icon="gmd-access-alarm" />
 
         <TextView
             android:id="@+id/time"
@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="28 Desember 2019 09:00:00"
-            android:textColor="@color/white"
+            android:textColor="@color/gray"
             android:textSize="12dp" />
     </LinearLayout>
 
@@ -48,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="45"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="28dp"
             android:textStyle="bold" />
 
@@ -57,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="o"
-            android:textColor="@color/white"
+            android:textColor="@color/grayDark"
             android:textSize="11dp"
             android:textStyle="bold" />
 
@@ -66,7 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="C"
-            android:textColor="@color/white"
+            android:textColor="@color/grayDark"
             android:textSize="28dp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -75,7 +75,7 @@
         android:id="@+id/arrow"
         android:layout_width="16dp"
         android:layout_height="16dp"
-        app:iiv_color="@color/white"
+        app:iiv_color="@color/gray"
         app:iiv_icon="gmd-keyboard-arrow-right"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"

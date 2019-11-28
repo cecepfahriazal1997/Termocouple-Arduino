@@ -14,11 +14,12 @@ import com.thermocouple.typek.R;
 import com.thermocouple.typek.model.RecordModel;
 
 import java.util.List;
+
 /**
  * Created by Cecep Rokani on 3/18/2019.
  */
 
-public class RecordAdapter extends BaseAdapter {
+public class HistoryRecordAdapter extends BaseAdapter {
 
     private AppCompatActivity activity;
     private LayoutInflater inflater;
@@ -28,7 +29,7 @@ public class RecordAdapter extends BaseAdapter {
 
     ViewHolder holder;
 
-    public RecordAdapter(AppCompatActivity activity, List<RecordModel> items) {
+    public HistoryRecordAdapter(AppCompatActivity activity, List<RecordModel> items) {
         this.activity = activity;
         this.items = items;
         this.color = color;
@@ -56,7 +57,7 @@ public class RecordAdapter extends BaseAdapter {
             inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if(convertView == null) {
-            convertView         = inflater.inflate(R.layout.list_record, null);
+            convertView         = inflater.inflate(R.layout.list_record_dark, null);
             holder              = new ViewHolder();
             holder.Time         = convertView.findViewById(R.id.time);
             holder.Number       = convertView.findViewById(R.id.number);

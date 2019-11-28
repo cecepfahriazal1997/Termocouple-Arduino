@@ -1,22 +1,21 @@
 package com.thermocouple.typek.activity;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ListView;
 
+import androidx.appcompat.widget.Toolbar;
+
 import com.thermocouple.typek.R;
-import com.thermocouple.typek.adapter.RecordAdapter;
+import com.thermocouple.typek.adapter.HistoryRecordAdapter;
 import com.thermocouple.typek.model.RecordModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import mehdi.sakout.fancybuttons.FancyButton;
-
-public class DashboardActivity extends MasterActivity {
-    private FancyButton seeMore;
+public class HistoryActivity extends MasterActivity {
+    private Toolbar toolbar;
     private List<RecordModel> list = new ArrayList<RecordModel>();
-    private RecordAdapter adapter;
+    private HistoryRecordAdapter adapter;
     private ListView listView;
     private String date[] = {
             "28 Desember 2019 09:10:00",
@@ -37,23 +36,20 @@ public class DashboardActivity extends MasterActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashboard);
+        setContentView(R.layout.activity_history_record);
 
-        seeMore             = findViewById(R.id.btnSeeMore);
+        toolbar             = findViewById(R.id.toolbar);
         listView            = findViewById(R.id.listview);
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Data Record");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         initialData();
     }
 
     private void initialData() {
-        seeMore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                functionHelper.startIntent(HistoryActivity.class, false, false, null);
-            }
-        });
-
-        adapter = new RecordAdapter(DashboardActivity.this, list);
+        adapter = new HistoryRecordAdapter(HistoryActivity.this, list);
         listView.setAdapter(adapter);
         list.clear();
 

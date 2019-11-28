@@ -18,7 +18,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="16dp"
-        android:background="@color/white">
+        android:background="@color/grayLight2">
 
         <TextView
             android:layout_width="wrap_content"
@@ -190,15 +190,37 @@
                     android:layout_gravity="center_horizontal"
                     android:background="@drawable/rounded_white" />
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="List of Record"
-                    android:textColor="@color/white"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
+                    android:layout_marginBottom="8dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="List of Record"
+                        android:textColor="@color/white"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                    <mehdi.sakout.fancybuttons.FancyButton
+                        android:id="@+id/btnSeeMore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:paddingBottom="8dp"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp"
+                        android:paddingTop="8dp"
+                        fancy:fb_borderWidth="0dp"
+                        fancy:fb_defaultColor="@color/white"
+                        fancy:fb_focusColor="@color/transparent"
+                        fancy:fb_radius="8dp"
+                        fancy:fb_text="See More"
+                        fancy:fb_textColor="@color/colorPrimary"
+                        fancy:fb_textSize="11dp"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
 
                 <ListView
                     android:id="@+id/listview"
@@ -211,22 +233,6 @@
                     android:headerDividersEnabled="false"
                     android:paddingTop="8dp"
                     android:scrollbars="none" />
-
-                <mehdi.sakout.fancybuttons.FancyButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:paddingTop="10dp"
-                    android:layout_marginTop="8dp"
-                    fancy:fb_borderWidth="0dp"
-                    fancy:fb_defaultColor="@color/white"
-                    fancy:fb_focusColor="@color/colorPrimaryDark"
-                    fancy:fb_radius="8dp"
-                    fancy:fb_text="See More"
-                    fancy:fb_textColor="@color/colorPrimary" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </FrameLayout>
