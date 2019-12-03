@@ -1,9 +1,13 @@
 package com.thermocouple.typek.activity;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ListView;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.thermocouple.typek.R;
 import com.thermocouple.typek.adapter.HistoryRecordAdapter;
@@ -17,21 +21,7 @@ public class HistoryActivity extends MasterActivity {
     private List<RecordModel> list = new ArrayList<RecordModel>();
     private HistoryRecordAdapter adapter;
     private ListView listView;
-    private String date[] = {
-            "28 Desember 2019 09:10:00",
-            "28 Desember 2019 10:00:00",
-            "28 Desember 2019 12:00:00",
-            "28 Desember 2019 14:00:00",
-            "28 Desember 2019 17:00:00"
-    };
-
-    private String celcius[] = {
-            "35",
-            "25",
-            "90.8",
-            "100.5",
-            "44"
-    };
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +30,7 @@ public class HistoryActivity extends MasterActivity {
 
         toolbar             = findViewById(R.id.toolbar);
         listView            = findViewById(R.id.listview);
+        swipeRefreshLayout  = findViewById(R.id.swipe_refresh_layout);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Data Record");
@@ -49,18 +40,45 @@ public class HistoryActivity extends MasterActivity {
     }
 
     private void initialData() {
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadData();
+            }
+        });
+        swipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                loadData();
+            }
+        });
+    }
+
+    private void loadData() {
+        functionHelper.showLoadingSwipeRefreshLayout(swipeRefreshLayout, true);
         adapter = new HistoryRecordAdapter(HistoryActivity.this, list);
         listView.setAdapter(adapter);
         list.clear();
+        list.addAll(databaseHelper.getAllRecord());
+        adapter.notifyDataSetChanged();
+        functionHelper.showLoadingSwipeRefreshLayout(swipeRefreshLayout, false);
+    }
 
-        for (int i = 0; i < date.length; i++) {
-            RecordModel model = new RecordModel();
-            model.setId("" + i);
-            model.setDate(date[i]);
-            model.setTemperature(celcius[i]);
-            list.add(model);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            this.finish();
+            return true;
         }
 
-        adapter.notifyDataSetChanged();
+        return super.onOptionsItemSelected(item);
     }
 }

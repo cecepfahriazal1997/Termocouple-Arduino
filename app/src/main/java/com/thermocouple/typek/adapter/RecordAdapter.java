@@ -13,6 +13,8 @@ import com.mikepenz.iconics.view.IconicsImageView;
 import com.thermocouple.typek.R;
 import com.thermocouple.typek.model.RecordModel;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 /**
  * Created by Cecep Rokani on 3/18/2019.
@@ -72,8 +74,13 @@ public class RecordAdapter extends BaseAdapter {
 
         RecordModel item = items.get(position);
 
+        SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy HH:mm:ss");
         holder.Number.setText(item.getTemperature());
-        holder.Time.setText(item.getDate());
+        try {
+            holder.Time.setText(formatter.parse(item.getDate()).toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         return convertView;
     }
