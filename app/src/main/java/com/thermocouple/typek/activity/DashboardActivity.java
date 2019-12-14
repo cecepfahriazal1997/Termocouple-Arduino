@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -21,6 +22,9 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import mehdi.sakout.fancybuttons.FancyButton;
 
@@ -33,6 +37,7 @@ public class DashboardActivity extends MasterActivity {
     private FancyButton btnSeeMore;
     private SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy");
     private SimpleDateFormat formatter2 = new SimpleDateFormat("HH:mm:ss");
+    private ScheduledExecutorService scheduleTaskExecutor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,22 +55,36 @@ public class DashboardActivity extends MasterActivity {
     }
 
     private void initialData() {
-        fetchData();
+        scheduleTaskExecutor = Executors.newScheduledThreadPool(1);
+        scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        setDate();
+                        fetchData();
+                    }
+                });
+            }
+        }, 0, 1, TimeUnit.SECONDS);
+
         seeMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 functionHelper.startIntent(HistoryActivity.class, false, false, null);
             }
         });
-        setData();
     }
 
-    private void setData() {
+    private void setDate() {
         long millis             = System.currentTimeMillis();
         java.sql.Date tempDate  = new java.sql.Date(millis);
         date.setText(formatter.format(tempDate));
         time.setText(formatter2.format(tempDate));
+    }
 
+    private void setData() {
         adapter = new RecordAdapter(DashboardActivity.this, list);
         listView.setAdapter(adapter);
         list.clear();

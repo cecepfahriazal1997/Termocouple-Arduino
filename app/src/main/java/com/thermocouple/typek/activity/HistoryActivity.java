@@ -56,6 +56,7 @@ public class HistoryActivity extends MasterActivity {
 
     private void loadData() {
         functionHelper.showLoadingSwipeRefreshLayout(swipeRefreshLayout, true);
+        functionHelper.setEnabledSwipeRefreshListView(swipeRefreshLayout, listView, "normal");
         adapter = new HistoryRecordAdapter(HistoryActivity.this, list);
         listView.setAdapter(adapter);
         list.clear();

@@ -74,10 +74,11 @@ public class RecordAdapter extends BaseAdapter {
 
         RecordModel item = items.get(position);
 
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy HH:mm:ss");
         holder.Number.setText(item.getTemperature());
         try {
-            holder.Time.setText(formatter.parse(item.getDate()).toString());
+            holder.Time.setText(formatter.format(format.parse(item.getDate())));
         } catch (ParseException e) {
             e.printStackTrace();
         }
