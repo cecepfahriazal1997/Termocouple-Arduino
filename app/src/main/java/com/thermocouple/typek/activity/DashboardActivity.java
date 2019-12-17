@@ -3,6 +3,7 @@ package com.thermocouple.typek.activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,10 +35,10 @@ public class DashboardActivity extends MasterActivity {
     private RecordAdapter adapter;
     private ListView listView;
     private TextView date, time, temperature;
-    private FancyButton btnSeeMore;
     private SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy");
     private SimpleDateFormat formatter2 = new SimpleDateFormat("HH:mm:ss");
     private ScheduledExecutorService scheduleTaskExecutor;
+    private CheckBox status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +50,7 @@ public class DashboardActivity extends MasterActivity {
         date                = findViewById(R.id.date);
         time                = findViewById(R.id.time);
         temperature         = findViewById(R.id.temperature);
-        btnSeeMore          = findViewById(R.id.btnSeeMore);
+        status              = findViewById(R.id.status);
 
         initialData();
     }
@@ -75,6 +76,12 @@ public class DashboardActivity extends MasterActivity {
                 functionHelper.startIntent(HistoryActivity.class, false, false, null);
             }
         });
+        status.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                functionHelper.startIntent(SettingRecordActivity.class, false, false, null);
+            }
+        });
     }
 
     private void setDate() {
@@ -91,7 +98,7 @@ public class DashboardActivity extends MasterActivity {
         list.addAll(databaseHelper.getAllRecord());
         adapter.notifyDataSetChanged();
         if (list != null && list.size() > 5)
-            btnSeeMore.setVisibility(View.VISIBLE);
+            seeMore.setVisibility(View.VISIBLE);
     }
 
     public void fetchData() {
